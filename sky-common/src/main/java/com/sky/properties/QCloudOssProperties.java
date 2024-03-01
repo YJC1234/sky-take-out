@@ -5,11 +5,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "sky.alioss")
+@ConfigurationProperties(prefix = "sky.qcloudoss")
 @Data
-public class AliOssProperties {
+public class QCloudOssProperties {
 
-    private String endpoint;
+    private String bucketAddr;
     private String accessKeyId;
     private String accessKeySecret;
     private String bucketName;

@@ -40,10 +40,10 @@ public class CategoryServiceImpl implements CategoryService {
         //属性拷贝
         BeanUtils.copyProperties(categoryDTO, category);
         //设置创建时间修改时间，创建人修改人
-        category.setCreateTime(LocalDateTime.now());
-        category.setUpdateTime(LocalDateTime.now());
-        category.setCreateUser(BaseContext.getCurrentId());
-        category.setUpdateUser(BaseContext.getCurrentId());
+//        category.setCreateTime(LocalDateTime.now());
+//        category.setUpdateTime(LocalDateTime.now());
+//        category.setCreateUser(BaseContext.getCurrentId());
+//        category.setUpdateUser(BaseContext.getCurrentId());
         //默认禁用
         category.setStatus(StatusConstant.DISABLE);
 
@@ -79,7 +79,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (count > 0) {
             throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_SETMEAL);
         }
-        
+
         categoryMapper.deleteById(id);
     }
 
@@ -90,8 +90,8 @@ public class CategoryServiceImpl implements CategoryService {
     public void update(CategoryDTO categoryDTO) {
         Category category = new Category();
         BeanUtils.copyProperties(categoryDTO, category);
-        category.setUpdateTime(LocalDateTime.now());
-        category.setUpdateUser(BaseContext.getCurrentId());
+//        category.setUpdateTime(LocalDateTime.now());
+//        category.setUpdateUser(BaseContext.getCurrentId());
         categoryMapper.update(category);
     }
 

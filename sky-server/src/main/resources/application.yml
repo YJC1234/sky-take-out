@@ -37,3 +37,8 @@ sky:
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+  qcloudoss:
+    access-key-id: ${sky.qcloudoss.access-key-id}
+    access-key-secret: ${sky.qcloudoss.access-key-secret}
+    bucket-name: ${sky.qcloudoss.bucket-name}
+    bucket-addr: ${sky.qcloudoss.endpoint}
