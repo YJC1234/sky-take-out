@@ -28,6 +28,11 @@ public interface DishMapper {
     Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
     /**
+     * 根据id查询菜品
+     */
+    Dish getById(Long id);
+
+    /**
      * 根据id批量查询菜品
      */
     List<Dish> getByIds(List<Long> ids);
@@ -35,5 +40,10 @@ public interface DishMapper {
     /**
      * 根据id批量删除菜品
      */
-    void deleteBatch(List<Long> ids);
+    void deleteByIds(List<Long> ids);
+
+    /**
+     * 修改菜品
+     */
+    void update(Dish dish);
 }

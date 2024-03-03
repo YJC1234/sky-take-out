@@ -34,11 +34,44 @@
         </foreach>
     </select>
 
-    <delete id="deleteBatch">
+    <delete id="deleteByIds">
         DELETE from dish
         WHERE id IN
         <foreach collection="list" item="id" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
+
+    <select id="getById" resultType="com.sky.entity.Dish">
+        select *
+        from dish
+        where id = #{id}
+    </select>
+
+    <update id="update">
+        update dish
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            update_time = #{updateTime},
+            update_user = #{updateUser}
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

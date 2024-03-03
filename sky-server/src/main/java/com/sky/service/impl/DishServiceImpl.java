@@ -58,7 +58,7 @@ public class DishServiceImpl implements DishService {
 
     @Override
     @Transactional
-    public void deleteBatch(List<Long> ids) {
+    public void deleteByIds(List<Long> ids) {
         //判断当前菜品能否删除(启售 或 与套餐关联 的菜品无法删除)
         List<Dish> dishes = dishMapper.getByIds(ids);
         //是否启售?
@@ -73,7 +73,37 @@ public class DishServiceImpl implements DishService {
             throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
         }
         //删除菜品，以及菜品的口味
-        dishMapper.deleteBatch(ids);
+        dishMapper.deleteByIds(ids);
         dishFlavorMapper.deleteByDishIds(ids);
+    }
+
+    @Override
+    public DishVO getByIdWithFlavor(Long id) {
+        //查询菜品
+        Dish dish = dishMapper.getById(id);
+        //查询口味
+        List<DishFlavor> flavors = dishFlavorMapper.getByDishId(id);
+        //组合
+        DishVO dishVO = new DishVO();
+        BeanUtils.copyProperties(dish, dishVO);
+        dishVO.setFlavors(flavors);
+        return dishVO;
+    }
+
+    @Override
+    @Transactional
+    public void updateWithFlavors(DishDTO dishDTO) {
+        //更新菜品
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO, dish);
+        dishMapper.update(dish);
+        //删除原有口味
+        dishFlavorMapper.deleteByDishIds(List.of(dish.getId()));
+        //插入新口味
+        List<DishFlavor> dishFlavors = dishDTO.getFlavors();
+        if (dishFlavors != null && !dishFlavors.isEmpty()) {
+            dishFlavors.forEach(dishFlavor -> dishFlavor.setDishId(dish.getId()));
+            dishFlavorMapper.insertBatch(dishFlavors);
+        }
     }
 }
