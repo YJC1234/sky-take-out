@@ -1,7 +1,13 @@
 package com.sky.mapper;
 
+import com.github.pagehelper.Page;
+import com.sky.dto.DishPageQueryDTO;
+import com.sky.entity.Dish;
+import com.sky.vo.DishVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper
 public interface DishMapper {
@@ -10,4 +16,24 @@ public interface DishMapper {
      */
     @Select("select count(id) from dish where category_id = #{categoryId} ")
     Integer countByCategoryId(Long categoryId);
+
+    /**
+     * 插入菜品
+     */
+    void insert(Dish dish);
+
+    /**
+     * 菜品分页查询
+     */
+    Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    /**
+     * 根据id批量查询菜品
+     */
+    List<Dish> getByIds(List<Long> ids);
+
+    /**
+     * 根据id批量删除菜品
+     */
+    void deleteBatch(List<Long> ids);
 }
