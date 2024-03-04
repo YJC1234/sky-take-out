@@ -122,6 +122,11 @@
                 <artifactId>wechatpay-apache-httpclient</artifactId>
                 <version>0.4.9</version>
             </dependency>
+            <!--热重载-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
